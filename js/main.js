@@ -65,9 +65,72 @@ const teamContainer = document.querySelector('.posts-list');
 // 4. Utilizzo un ciclo "for" attraverso la mia funzione "stampa" per stampare le informazioni sul foglio HTML
 stampaPostHTML (posts);
 
+// 5. Utilizzo un ciclo "for in" per verificare se alcuni post non hanno l'immagine profilo e la elimino dal foglio HTML
+// for( let index in posts){
+//     console.log(posts[index])
+//     // for(let i in posts[index]){
+//     //     console.log((posts[index])[i]);
+//     //     if((posts[index])[i] = null){
+//     //       }
+//     // }
+// }
+
+for(let i = 0; i < posts.length; i++){
+    console.log(posts[i].author.image);
+    if(posts[i].author.image = null){
+    eliminazioneImgProfile (i);
+    }
+}
+
+// 6. Aggancio il pulsante like e al click faccio scatenare la funzione aggiunta like
+const bntLike = document.getElementsByClassName('like-button');
+
+const contatoreLike = document.getElementsByClassName('js-likes-counter');
+
+// let a = contatoreLike[i].value;
+// console.log(a);
+
+// let postId1 = document.getElementById('amore').value;
+// console.log(postId1);
+
+// for(let i = 0; i < bntLike.length; i++){
+//     bntLike[i].addEventListener('click', clickLike);
+//         console.log('bellalì!');
+    
+    
+// }
+
+// 7. Leggo i valori in stringa delle date:
+        // -7.1 Li trasformo in oggetto new Date   
+        for(let i = 0; i < posts.length; i++){
+            let data = new Date(posts[i].created);
+            console.log(data);
+            
+            let year = data.getFullYear();
+            console.log(year);
+            
+            
+            let month = (data.getMonth()) + 1;
+            console.log(month);
+            
+            
+            let day = data.getDate();
+            console.log(day);
+
+            const dataHTML = document.getElementsByClassName('post-meta__time');
+
+            dataHTML[i].innerHTML = `${day}/${month}/${year}`
+
+        }
+        
+        // -7.2 Li scompongo e li trascrivo nell'HTML  in formatoi italiano
 
 
 
+// data.setMonth(data.setMonth());
+// console.log(data);
+// data.setDate(data.setDate());
+// console.log(data);
 
 
 
@@ -75,6 +138,7 @@ stampaPostHTML (posts);
 // §§ --- FUNZIONE --- §§ //
 function stampaPostHTML (allPost){
     for(let post of allPost){
+
       html += 
       `
       <div class="post">
@@ -102,7 +166,7 @@ function stampaPostHTML (allPost){
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+                        Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -111,4 +175,33 @@ function stampaPostHTML (allPost){
       console.log(html);
       teamContainer.innerHTML = html;
     }
-  }
+}
+
+function eliminazioneImgProfile (index){
+    const imgProfile = document.getElementsByClassName('post-meta__icon');
+    imgProfile[index].innerHTML = '';
+}
+
+function clickLike (){
+console.log('hai cliccato il pulsante like');
+    this.className = ('like-button--liked');
+
+    }
+
+function sommaLike (value){
+    return (value + 1);
+}
+
+// function stampaDataHTML (allPost){
+
+//     for(let post of allPost){
+
+//     let html = '';
+//       html = 
+//       `
+//         <div class="post-meta__time">${}</div>
+//       `
+//       console.log(html);
+//       teamContainer.innerHTML = html;
+//     }
+// }
